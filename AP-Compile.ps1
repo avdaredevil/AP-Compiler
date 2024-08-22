@@ -138,10 +138,10 @@ if ($Dbg) {
     $MaxNameSize = [math]::Max(($Script:Functions | % {$_.Name.Length} | Measure-Object -Maximum).Maximum, ($SeenClassDefs.Keys | % Length | Measure-Object -Maximum).Maximum)+3
     $MaxNameSize = [math]::Clamp($MaxNameSize, 23, [Math]::Max(24, [Console]::WindowWidth * .5))
     $Script:Functions | % {
-        Write-APL ">>#","+$($_.Name) ","#$("." * [Math]::max(0, 23 - $_.Name.length)) ","@$($_.Type.PadLeft(8))","# | Depth: ","@$($_.Depth)"
+        Write-APL ">>#","+$($_.Name) ","#$("." * [Math]::max(0, $MaxNameSize - $_.Name.length)) ","@$($_.Type.PadLeft(8))","# | Depth: ","@$($_.Depth)"
     }
     $SeenClassDefs.Keys | % {
-        Write-APL ">>#","+$($_) ","#$("." * [Math]::max(0, 23 - $_.length)) ","@$("Class".PadLeft(8))","# | Depth: ","@0"
+        Write-APL ">>#","+$($_) ","#$("." * [Math]::max(0, $MaxNameSize - $_.length)) ","@$("Class".PadLeft(8))","# | Depth: ","@0"
     }
 }
 $Script:Functions | % {
